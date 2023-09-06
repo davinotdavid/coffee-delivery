@@ -1,3 +1,3 @@
 export function OrderSuccess() {
-  return <h1>Order Success</h1>;
+  return <main>Order Success</main>;
 }

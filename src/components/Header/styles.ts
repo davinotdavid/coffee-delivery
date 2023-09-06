@@ -4,9 +4,6 @@ import { NavLink } from "react-router-dom";
 export const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
-  max-width: 70rem;
-  margin: 0 auto;
-  padding: 2rem 0px;
 
   nav {
     display: flex;
@@ -31,8 +28,8 @@ export const CartLink = styled(NavLink)`
   ${SharedNavItemStyles}
 
   width: 2.375rem;
-  color: ${(props) => props.theme.primary};
-  background-color: ${(props) => props.theme.primaryLight};
+  color: ${(props) => props.theme.colors.primary};
+  background-color: ${(props) => props.theme.colors.primaryLight};
 `;
 
 export const LocationButton = styled.button`
@@ -43,6 +40,6 @@ export const LocationButton = styled.button`
   font-size: 0.875rem;
   text-decoration: none;
   cursor: pointer;
-  color: ${(props) => props.theme.secondary};
-  background-color: ${(props) => props.theme.secondaryLight};
+  color: ${(props) => props.theme.colors.secondary};
+  background-color: ${(props) => props.theme.colors.secondaryLight};
 `;
