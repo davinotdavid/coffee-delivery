@@ -9,12 +9,32 @@ export const BackgroundContainer = styled.div`
 export const StyledSection = styled.section`
   display: flex;
   justify-content: space-between;
+  padding: 5.75rem 0px;
+  gap: 3.5rem;
+
+  @media ${(props) => props.theme.breakpoints.lg} {
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 0px;
+  }
+
+  img {
+    width: 476px;
+    height: 360px;
+
+    @media ${(props) => props.theme.breakpoints.sm} {
+      width: 100%;
+      height: 100%;
+      padding-inline: 5.75rem;
+      object-fit: cover;
+    }
+  }
 `;
 
 const ICON_COLORS = {
   cart: "primaryDark",
   timer: "primary",
-  package: "baseTitle",
+  package: "baseText",
   coffee: "secondary",
 } as const;
 
@@ -36,7 +56,10 @@ export const IconContainer = styled.div<IconContainerProps>`
 
 export const TextContainer = styled.div`
   max-width: 36.75rem;
-  padding: 5.75rem 0px;
+
+  @media ${(props) => props.theme.breakpoints.lg} {
+    max-width: 45rem;
+  }
 
   h1 {
     font-family: "Baloo 2", cursive;

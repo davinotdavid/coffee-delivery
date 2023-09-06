@@ -6,6 +6,7 @@ import {
   BackgroundContainer,
 } from "./styles";
 import { Container } from "../Container";
+import HeroImagePNG from "../../assets/heroImage.png";
 
 export function Hero() {
   return (
@@ -30,13 +31,13 @@ export function Hero() {
                 <IconContainer icon="package">
                   <Package weight="fill" />
                 </IconContainer>
-                Fast and trackable delivery
+                Safe packaging
               </li>
               <li>
                 <IconContainer icon="timer">
                   <Timer weight="fill" />
                 </IconContainer>
-                Packaging protects coffee 100%
+                Fast and trackable delivery
               </li>
               <li>
                 <IconContainer icon="coffee">
@@ -46,6 +47,8 @@ export function Hero() {
               </li>
             </ul>
           </TextContainer>
+
+          <img src={HeroImagePNG} alt="" />
         </StyledSection>
       </Container>
     </BackgroundContainer>

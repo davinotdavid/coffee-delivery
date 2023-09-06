@@ -1,4 +1,7 @@
+import { breakpoints } from "../breakpoints";
+
 export const defaultTheme = {
+  breakpoints,
   colors: {
     primary: "#DBAC2C",
     primaryDark: "#C47F17",
