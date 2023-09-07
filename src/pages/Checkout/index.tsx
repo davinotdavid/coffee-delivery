@@ -1,5 +1,11 @@
 import { useContext } from "react";
-import { CurrencyDollar, MapPin } from "phosphor-react";
+import {
+  Bank,
+  CreditCard,
+  CurrencyDollar,
+  MapPin,
+  Money,
+} from "phosphor-react";
 import {
   Card,
   CardRow,
@@ -12,9 +18,15 @@ import {
   StyledTextField,
 } from "./styles";
 import { CartContext } from "@/contexts/CartContext";
+import { RadioGroup } from "@/components/RadioGroup";
+import { TextField } from "@/components/TextField";
 
 export function Checkout() {
   const { cartItems } = useContext(CartContext);
+
+  function handleOnPaymentOptionSelected(paymentSelected: string) {
+    console.log("paymentSelected", paymentSelected);
+  }
 
   return (
     <StyledMain>
@@ -40,8 +52,8 @@ export function Checkout() {
               <StyledTextField placeholder="Postcode" size={12} />
             </CardRow>
             <CardRow>
-              <StyledTextField placeholder="Vancouver" fullWidth />
-              <StyledTextField placeholder="BC" size={5} />
+              <TextField placeholder="Vancouver" fullWidth />
+              <TextField placeholder="BC" size={5} />
             </CardRow>
           </Card>
         </CompleteYourOrderSection>
@@ -55,16 +67,26 @@ export function Checkout() {
               description="The payment is done upon delivery. Choose payment method:"
             />
 
-            <fieldset>
-              <div>
-                <input type="radio" id="huey" name="drone" value="huey" />
-                <label htmlFor="huey">Huey</label>
-              </div>
-              <div>
-                <input type="radio" id="dewey" name="drone" value="dewey" />
-                <label htmlFor="dewey">Dewey</label>
-              </div>
-            </fieldset>
+            <RadioGroup
+              fields={[
+                {
+                  text: "Credit Card",
+                  innerValue: "creditCard",
+                  icon: <CreditCard size={16} />,
+                },
+                {
+                  text: "Debit Card",
+                  innerValue: "debitCard",
+                  icon: <Bank size={16} />,
+                },
+                {
+                  text: "Cash",
+                  innerValue: "cash",
+                  icon: <Money size={16} />,
+                },
+              ]}
+              onOptionSelected={handleOnPaymentOptionSelected}
+            />
           </Card>
         </PaymentSection>
       </div>
