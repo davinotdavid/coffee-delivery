@@ -5,8 +5,8 @@ import {
   IconContainer,
   BackgroundContainer,
 } from "./styles";
-import { Container } from "../Container";
-import HeroImagePNG from "../../assets/heroImage.png";
+import HeroImagePNG from "@/assets/heroImage.png";
+import { Container } from "@/components/Container";
 
 export function Hero() {
   return (
