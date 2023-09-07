@@ -30,9 +30,26 @@ const SharedNavItemStyles = css`
 export const CartLink = styled(NavLink)`
   ${SharedNavItemStyles}
 
+  position: relative;
   width: 2.375rem;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.primaryDark};
   background-color: ${(props) => props.theme.colors.primaryLight};
+
+  span {
+    top: -0.5rem;
+    right: -0.5rem;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.primaryDark};
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
 `;
 
 export const LocationButton = styled.button`

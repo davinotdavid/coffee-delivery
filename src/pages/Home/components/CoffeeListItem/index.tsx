@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Minus, Plus, ShoppingCart } from "phosphor-react";
 import {
   StyledListItem,
@@ -8,6 +8,7 @@ import {
   NumberInputContainer,
   ShoppingCartButton,
 } from "./styles";
+import { CartContext } from "@/contexts/cartContext";
 
 const MIN_INPUT_VALUE = 1;
 const MAX_INPUT_VALUE = 9;
@@ -22,6 +23,7 @@ export interface CoffeeListItemProps {
 }
 
 export function CoffeeListItem({
+  id,
   name,
   description,
   tags,
@@ -29,6 +31,8 @@ export function CoffeeListItem({
   price,
 }: CoffeeListItemProps) {
   const [coffeeQuantity, setCoffeeQuantity] = useState(1);
+  const { addItemToCart } = useContext(CartContext);
+
   const separatedTags = tags?.split(",");
 
   function handleMinusButtonClicked() {
@@ -45,6 +49,16 @@ export function CoffeeListItem({
     }
 
     setCoffeeQuantity((previousQuantity) => previousQuantity + 1);
+  }
+
+  function handleAddToCartButtonClicked() {
+    addItemToCart({
+      id,
+      name,
+      price,
+      quantity: coffeeQuantity,
+      imageSrc,
+    });
   }
 
   return (
@@ -83,7 +97,7 @@ export function CoffeeListItem({
             </button>
           </NumberInputContainer>
 
-          <ShoppingCartButton>
+          <ShoppingCartButton onClick={handleAddToCartButtonClicked}>
             <ShoppingCart size={20} weight="fill" />
           </ShoppingCartButton>
         </ItemControlsContainer>
