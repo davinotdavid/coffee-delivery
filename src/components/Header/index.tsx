@@ -2,7 +2,7 @@ import { MapPin, ShoppingCart } from "phosphor-react";
 import { HomeLink, CartLink, LocationButton, StyledHeader } from "./styles";
 import LogoSVG from "../../assets/logo.svg";
 import { useContext } from "react";
-import { CartContext } from "@/contexts/cartContext";
+import { CartContext } from "@/contexts/CartContext";
 
 export function Header() {
   const { cartItems } = useContext(CartContext);

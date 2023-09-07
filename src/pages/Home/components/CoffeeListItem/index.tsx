@@ -8,7 +8,7 @@ import {
   NumberInputContainer,
   ShoppingCartButton,
 } from "./styles";
-import { CartContext } from "@/contexts/cartContext";
+import { CartContext } from "@/contexts/CartContext";
 
 const MIN_INPUT_VALUE = 1;
 const MAX_INPUT_VALUE = 9;
