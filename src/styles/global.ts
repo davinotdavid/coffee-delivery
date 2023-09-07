@@ -23,4 +23,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
     line-height: 1.3;
   }
+
+  ul {
+    list-style: none;
+  }
 `;

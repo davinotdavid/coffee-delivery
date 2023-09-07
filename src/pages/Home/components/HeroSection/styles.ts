@@ -9,8 +9,10 @@ export const BackgroundContainer = styled.div`
 export const StyledSection = styled.section`
   display: flex;
   justify-content: space-between;
-  padding: 5.75rem 0px;
   gap: 3.5rem;
+  padding: 5.75rem 1rem;
+  max-width: 70rem;
+  margin: 0 auto;
 
   @media ${(props) => props.theme.breakpoints.lg} {
     flex-direction: column;
@@ -75,9 +77,6 @@ export const TextContainer = styled.div`
   }
 
   ul {
-    /* Remove the bullet point */
-    list-style: none;
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 2.5rem;
