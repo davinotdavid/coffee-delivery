@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Minus, Plus, ShoppingCart } from "phosphor-react";
 import {
   StyledListItem,
@@ -7,6 +8,9 @@ import {
   NumberInputContainer,
   ShoppingCartButton,
 } from "./styles";
+
+const MIN_INPUT_VALUE = 1;
+const MAX_INPUT_VALUE = 9;
 
 export interface CoffeeListItemProps {
   id: string;
@@ -24,7 +28,24 @@ export function CoffeeListItem({
   imageSrc,
   price,
 }: CoffeeListItemProps) {
+  const [coffeeQuantity, setCoffeeQuantity] = useState(1);
   const separatedTags = tags?.split(",");
+
+  function handleMinusButtonClicked() {
+    if (coffeeQuantity === MIN_INPUT_VALUE) {
+      return;
+    }
+
+    setCoffeeQuantity((previousQuantity) => previousQuantity - 1);
+  }
+
+  function handlePlusButtonClicked() {
+    if (coffeeQuantity === MAX_INPUT_VALUE) {
+      return;
+    }
+
+    setCoffeeQuantity((previousQuantity) => previousQuantity + 1);
+  }
 
   return (
     <StyledListItem>
@@ -47,11 +68,17 @@ export function CoffeeListItem({
         </span>
         <ItemControlsContainer>
           <NumberInputContainer>
-            <button title={`Reduce amount of ${name} by 1`}>
+            <button
+              title={`Reduce amount of ${name} by 1`}
+              onClick={handleMinusButtonClicked}
+            >
               <Minus weight="bold" size={14} />
             </button>
-            <input type="number" defaultValue={1} />
-            <button title={`Increase amount of ${name} by 1`}>
+            <span>{coffeeQuantity}</span>
+            <button
+              title={`Increase amount of ${name} by 1`}
+              onClick={handlePlusButtonClicked}
+            >
               <Plus weight="bold" size={14} />
             </button>
           </NumberInputContainer>

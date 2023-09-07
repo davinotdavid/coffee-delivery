@@ -26,6 +26,7 @@ export const StyledListItem = styled.li`
     text-align: center;
     font-size: 0.875rem;
     color: ${(props) => props.theme.colors.baseLabel};
+    flex-grow: 1;
     margin-block-end: 2rem;
   }
 
@@ -85,19 +86,12 @@ export const NumberInputContainer = styled.div`
     cursor: pointer;
   }
 
-  input {
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 1.5rem;
-    font-size: 1rem;
     text-align: center;
-    background-color: inherit;
-    padding-inline: 0.125rem;
-    border: 0;
-
-    /* Hide up and down arrows */
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-    }
   }
 `;
 

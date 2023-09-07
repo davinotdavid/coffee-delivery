@@ -11,7 +11,7 @@ export const StyledSection = styled.section`
   justify-content: space-between;
   gap: 3.5rem;
   padding: 5.75rem 1rem;
-  max-width: 70rem;
+  max-width: 72rem;
   margin: 0 auto;
 
   @media ${(props) => props.theme.breakpoints.lg} {

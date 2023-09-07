@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InventorySection = styled.section`
-  max-width: 70rem;
+  max-width: 72rem;
   margin: 0 auto;
   padding: 2rem 1rem;
 
