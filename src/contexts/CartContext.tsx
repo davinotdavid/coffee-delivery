@@ -1,5 +1,6 @@
-import { MAX_COFFEE_QUANTITY_INPUT_VALUE } from "@/constants";
 import { ReactNode, createContext, useState } from "react";
+import toast from "react-hot-toast";
+import { MAX_COFFEE_QUANTITY_INPUT_VALUE } from "@/constants";
 
 interface CartItem {
   id: string;
@@ -40,15 +41,22 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     // One shouldn't not be allowed to add more than 9 of the same item in the cart
     if (existingItem) {
       const totalQuantity = (existingItem.quantity += item.quantity);
+      const isMaxReached = totalQuantity > MAX_COFFEE_QUANTITY_INPUT_VALUE;
 
-      existingItem.quantity =
-        totalQuantity > MAX_COFFEE_QUANTITY_INPUT_VALUE
-          ? MAX_COFFEE_QUANTITY_INPUT_VALUE
-          : totalQuantity;
+      existingItem.quantity = isMaxReached
+        ? MAX_COFFEE_QUANTITY_INPUT_VALUE
+        : totalQuantity;
 
       updateItemFromCart(existingItem);
+
+      isMaxReached
+        ? toast.error(`Max reached for ${existingItem.name}`)
+        : toast.success(
+            `${existingItem.name} updated to ${existingItem.quantity}!`
+          );
     } else {
       setCartItems((previousItems) => [...previousItems, item]);
+      toast.success(`${item.quantity} ${item.name} added to the cart!`);
     }
   }
 
