@@ -12,4 +12,9 @@ export const StyledInput = styled.input<StyledInputProps>`
   border: 1px solid ${(props) => props.theme.colors.baseButton};
   border-radius: 4px;
   width: ${(props) => (props.$fullWidth ? "100%" : "inherit")};
+
+  &:focus {
+    border: 1px solid ${(props) => props.theme.colors.primaryDark};
+    box-shadow: none;
+  }
 `;

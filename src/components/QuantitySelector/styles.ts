@@ -14,6 +14,10 @@ export const NumberInputContainer = styled.div`
     color: ${(props) => props.theme.colors.secondary};
     border: 0;
     cursor: pointer;
+
+    &:hover {
+      color: ${(props) => props.theme.colors.secondaryDark};
+    }
   }
 
   span {

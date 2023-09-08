@@ -67,10 +67,7 @@ export function Checkout() {
             <StyledTextField placeholder="Street address" fullWidth />
             <CardRow>
               <OptionalTextFieldWrapper>
-                <StyledTextField
-                  placeholder="Apartment / Buzz Number"
-                  fullWidth
-                />
+                <StyledTextField placeholder="Apartment / Unit" fullWidth />
                 <span>Optional</span>
               </OptionalTextFieldWrapper>
               <StyledTextField placeholder="Postcode" size={12} />
@@ -103,7 +100,11 @@ export function Checkout() {
         <h2>Your cart</h2>
         <Card>
           {cartItems.map((cartItem) => (
-            <CartItem key={cartItem.id} {...cartItem} />
+            <CartItem
+              key={cartItem.id}
+              initialQuantity={cartItem.quantity}
+              {...cartItem}
+            />
           ))}
           <SubtotalTextContainer>
             <p>Item Subtotal</p>

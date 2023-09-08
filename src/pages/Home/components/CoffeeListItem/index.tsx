@@ -1,17 +1,18 @@
 import { useContext, useState } from "react";
-import { Minus, Plus, ShoppingCart } from "phosphor-react";
+import { ShoppingCart } from "phosphor-react";
 import {
   StyledListItem,
   TagsContainer,
   Tag,
   ItemControlsContainer,
-  NumberInputContainer,
   ShoppingCartButton,
 } from "./styles";
 import { CartContext } from "@/contexts/CartContext";
-
-const MIN_INPUT_VALUE = 1;
-const MAX_INPUT_VALUE = 9;
+import { QuantitySelector } from "@/components/QuantitySelector";
+import {
+  MAX_COFFEE_QUANTITY_INPUT_VALUE,
+  MIN_COFFEE_QUANTITY_INPUT_VALUE,
+} from "@/constants";
 
 export interface CoffeeListItemProps {
   id: string;
@@ -36,7 +37,7 @@ export function CoffeeListItem({
   const separatedTags = tags?.split(",");
 
   function handleMinusButtonClicked() {
-    if (coffeeQuantity === MIN_INPUT_VALUE) {
+    if (coffeeQuantity === MIN_COFFEE_QUANTITY_INPUT_VALUE) {
       return;
     }
 
@@ -44,7 +45,7 @@ export function CoffeeListItem({
   }
 
   function handlePlusButtonClicked() {
-    if (coffeeQuantity === MAX_INPUT_VALUE) {
+    if (coffeeQuantity === MAX_COFFEE_QUANTITY_INPUT_VALUE) {
       return;
     }
 
@@ -81,22 +82,12 @@ export function CoffeeListItem({
           CAD<span>{price.toFixed(2)}</span>
         </span>
         <ItemControlsContainer>
-          <NumberInputContainer>
-            <button
-              title={`Reduce amount of ${name} by 1`}
-              onClick={handleMinusButtonClicked}
-            >
-              <Minus weight="bold" size={14} />
-            </button>
-            <span>{coffeeQuantity}</span>
-            <button
-              title={`Increase amount of ${name} by 1`}
-              onClick={handlePlusButtonClicked}
-            >
-              <Plus weight="bold" size={14} />
-            </button>
-          </NumberInputContainer>
-
+          <QuantitySelector
+            name={name}
+            quantity={coffeeQuantity}
+            onMinusButtonClicked={handleMinusButtonClicked}
+            onPlusButtonClicked={handlePlusButtonClicked}
+          />
           <ShoppingCartButton onClick={handleAddToCartButtonClicked}>
             <ShoppingCart size={20} weight="fill" />
           </ShoppingCartButton>
