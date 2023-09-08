@@ -1,3 +1,4 @@
+import { MAX_COFFEE_QUANTITY_INPUT_VALUE } from "@/constants";
 import { ReactNode, createContext, useState } from "react";
 
 interface CartItem {
@@ -33,7 +34,22 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   ]);
 
   function addItemToCart(item: CartItem) {
-    setCartItems((previousItems) => [...previousItems, item]);
+    const existingItem = cartItems.find((c) => c.id === item.id);
+
+    // **Fake** business rule
+    // One shouldn't not be allowed to add more than 9 of the same item in the cart
+    if (existingItem) {
+      const totalQuantity = (existingItem.quantity += item.quantity);
+
+      existingItem.quantity =
+        totalQuantity > MAX_COFFEE_QUANTITY_INPUT_VALUE
+          ? MAX_COFFEE_QUANTITY_INPUT_VALUE
+          : totalQuantity;
+
+      updateItemFromCart(existingItem);
+    } else {
+      setCartItems((previousItems) => [...previousItems, item]);
+    }
   }
 
   function removeItemFromCart(item: CartItem) {
