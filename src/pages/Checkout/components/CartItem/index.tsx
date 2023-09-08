@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { QuantitySelector } from "@/components/QuantitySelector";
 import {
   RemoveItemButton,
@@ -11,29 +11,33 @@ import {
   MIN_COFFEE_QUANTITY_INPUT_VALUE,
 } from "@/constants";
 import { Trash } from "phosphor-react";
+import { CartContext } from "@/contexts/CartContext";
 
 interface CartItemProps {
   id: string;
   name: string;
   price: number;
-  initialQuantity: number;
+  quantity: number;
   imageSrc: string;
 }
 
-export function CartItem({
-  imageSrc,
-  name,
-  price,
-  initialQuantity,
-}: CartItemProps) {
-  const [quantity, setQuantity] = useState(initialQuantity);
+export function CartItem(cartItem: CartItemProps) {
+  const { imageSrc, name, price, quantity } = cartItem;
+  const { updateItemFromCart, removeItemFromCart } = useContext(CartContext);
+
+  const totalPriceFromItem = (price * quantity).toFixed(2);
 
   function handleMinusButtonClicked() {
     if (quantity === MIN_COFFEE_QUANTITY_INPUT_VALUE) {
       return;
     }
 
-    setQuantity((previousQuantity) => previousQuantity - 1);
+    const updatedCartItem = {
+      ...cartItem,
+      quantity: quantity - 1,
+    };
+
+    updateItemFromCart(updatedCartItem);
   }
 
   function handlePlusButtonClicked() {
@@ -41,7 +45,16 @@ export function CartItem({
       return;
     }
 
-    setQuantity((previousQuantity) => previousQuantity + 1);
+    const updatedCartItem = {
+      ...cartItem,
+      quantity: quantity + 1,
+    };
+
+    updateItemFromCart(updatedCartItem);
+  }
+
+  function handleRemoveItemButtonClicked() {
+    removeItemFromCart(cartItem);
   }
 
   return (
@@ -50,7 +63,7 @@ export function CartItem({
       <div>
         <Flex>
           <p>{name}</p>
-          <span>CAD {price.toFixed(2)}</span>
+          <span>CAD {totalPriceFromItem}</span>
         </Flex>
         <ItemInputsContainer>
           <QuantitySelector
@@ -59,7 +72,7 @@ export function CartItem({
             onMinusButtonClicked={handleMinusButtonClicked}
             onPlusButtonClicked={handlePlusButtonClicked}
           />
-          <RemoveItemButton>
+          <RemoveItemButton onClick={handleRemoveItemButtonClicked}>
             <Trash size={16} />
             Remover
           </RemoveItemButton>

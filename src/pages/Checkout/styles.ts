@@ -43,7 +43,7 @@ export const OptionalTextFieldWrapper = styled.div`
     right: 0.875rem;
     top: calc(50% - 0.857rem);
     font-style: italic;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: ${(props) => props.theme.colors.baseLabel};
   }
 `;

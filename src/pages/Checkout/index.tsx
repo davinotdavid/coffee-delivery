@@ -24,6 +24,7 @@ import { CartContext } from "@/contexts/CartContext";
 import { RadioGroup } from "@/components/RadioGroup";
 import { TextField } from "@/components/TextField";
 import { CartItem } from "./components/CartItem";
+import { DELIVERY_COST } from "@/constants";
 
 const PAYMENT_OPTIONS = [
   {
@@ -43,14 +44,18 @@ const PAYMENT_OPTIONS = [
   },
 ];
 
-const DELIVERY_COST = 3.3;
-
 export function Checkout() {
   const { cartItems } = useContext(CartContext);
 
   function handleOnPaymentOptionSelected(paymentSelected: string) {
     console.log("paymentSelected", paymentSelected);
   }
+
+  const itemSubtotal = cartItems.reduce<number>((previous, current) => {
+    return previous + current.price * current.quantity;
+  }, 0);
+
+  const cartTotal = (DELIVERY_COST + itemSubtotal).toFixed(2);
 
   return (
     <StyledMain>
@@ -100,15 +105,11 @@ export function Checkout() {
         <h2>Your cart</h2>
         <Card>
           {cartItems.map((cartItem) => (
-            <CartItem
-              key={cartItem.id}
-              initialQuantity={cartItem.quantity}
-              {...cartItem}
-            />
+            <CartItem key={cartItem.id} {...cartItem} />
           ))}
           <SubtotalTextContainer>
             <p>Item Subtotal</p>
-            <p>9.90</p>
+            <p>{itemSubtotal.toFixed(2)}</p>
           </SubtotalTextContainer>
           <SubtotalTextContainer>
             <p>Delivery</p>
@@ -116,7 +117,7 @@ export function Checkout() {
           </SubtotalTextContainer>
           <TotalTextContainer>
             <p>Total</p>
-            <p>33.20</p>
+            <p>{cartTotal}</p>
           </TotalTextContainer>
           <ConfirmOrderButton>Confirm Order</ConfirmOrderButton>
         </Card>

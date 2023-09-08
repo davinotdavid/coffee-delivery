@@ -11,6 +11,8 @@ interface CartItem {
 interface CartContextType {
   cartItems: CartItem[];
   addItemToCart: (item: CartItem) => void;
+  removeItemFromCart: (item: CartItem) => void;
+  updateItemFromCart: (item: CartItem) => void;
 }
 
 interface CartContextProviderProps {
@@ -34,8 +36,34 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setCartItems((previousItems) => [...previousItems, item]);
   }
 
+  function removeItemFromCart(item: CartItem) {
+    const itemIndex = cartItems.findIndex((c) => c.id === item.id);
+
+    setCartItems((previousItems) => [
+      ...previousItems.slice(0, itemIndex),
+      ...previousItems.slice(itemIndex + 1, previousItems.length),
+    ]);
+  }
+
+  function updateItemFromCart(item: CartItem) {
+    const itemIndex = cartItems.findIndex((c) => c.id === item.id);
+
+    setCartItems((previousItems) => [
+      ...previousItems.slice(0, itemIndex),
+      item,
+      ...previousItems.slice(itemIndex + 1, previousItems.length),
+    ]);
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addItemToCart }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addItemToCart,
+        removeItemFromCart,
+        updateItemFromCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
