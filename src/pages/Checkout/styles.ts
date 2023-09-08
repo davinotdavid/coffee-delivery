@@ -60,11 +60,49 @@ export const CompleteYourOrderSection = styled.section`
 export const CartSection = styled.section`
   width: 28rem;
 
-  div {
+  & > div {
     border-radius: 6px 44px;
   }
 `;
 
 export const PaymentSection = styled.section`
   max-width: 40rem;
+`;
+
+export const SubtotalTextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: ${(props) => props.theme.colors.baseText};
+  font-size: 0.875rem;
+  margin-block-end: 0.875rem;
+`;
+
+export const TotalTextContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  color: ${(props) => props.theme.colors.baseSubtitle};
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-block-end: 1.5rem;
+`;
+
+export const ConfirmOrderButton = styled.button`
+  padding: 0.75rem;
+  width: 100%;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.primary};
+  border: 0;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.primaryDark};
+  }
+
+  &:active {
+    background-color: ${(props) => props.theme.colors.primary};
+  }
 `;

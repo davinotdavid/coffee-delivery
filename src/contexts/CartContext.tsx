@@ -20,7 +20,15 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([
+    {
+      id: "1",
+      name: "Expresso Tradicional",
+      price: 9.9,
+      quantity: 3,
+      imageSrc: "src/assets/coffeeImages/espresso.png",
+    },
+  ]);
 
   function addItemToCart(item: CartItem) {
     setCartItems((previousItems) => [...previousItems, item]);

@@ -10,16 +10,40 @@ import {
   Card,
   CardRow,
   CartSection,
+  ConfirmOrderButton,
   CompleteYourOrderSection,
   OptionalTextFieldWrapper,
   PaymentSection,
   StyledMain,
   StyledSectionTitle,
   StyledTextField,
+  SubtotalTextContainer,
+  TotalTextContainer,
 } from "./styles";
 import { CartContext } from "@/contexts/CartContext";
 import { RadioGroup } from "@/components/RadioGroup";
 import { TextField } from "@/components/TextField";
+import { CartItem } from "./components/CartItem";
+
+const PAYMENT_OPTIONS = [
+  {
+    text: "Credit Card",
+    innerValue: "creditCard",
+    icon: <CreditCard size={16} />,
+  },
+  {
+    text: "Debit Card",
+    innerValue: "debitCard",
+    icon: <Bank size={16} />,
+  },
+  {
+    text: "Cash",
+    innerValue: "cash",
+    icon: <Money size={16} />,
+  },
+];
+
+const DELIVERY_COST = 3.3;
 
 export function Checkout() {
   const { cartItems } = useContext(CartContext);
@@ -68,23 +92,7 @@ export function Checkout() {
             />
 
             <RadioGroup
-              fields={[
-                {
-                  text: "Credit Card",
-                  innerValue: "creditCard",
-                  icon: <CreditCard size={16} />,
-                },
-                {
-                  text: "Debit Card",
-                  innerValue: "debitCard",
-                  icon: <Bank size={16} />,
-                },
-                {
-                  text: "Cash",
-                  innerValue: "cash",
-                  icon: <Money size={16} />,
-                },
-              ]}
+              fields={PAYMENT_OPTIONS}
               onOptionSelected={handleOnPaymentOptionSelected}
             />
           </Card>
@@ -95,8 +103,21 @@ export function Checkout() {
         <h2>Your cart</h2>
         <Card>
           {cartItems.map((cartItem) => (
-            <p key={cartItem.id}>{cartItem.name}</p>
+            <CartItem key={cartItem.id} {...cartItem} />
           ))}
+          <SubtotalTextContainer>
+            <p>Item Subtotal</p>
+            <p>9.90</p>
+          </SubtotalTextContainer>
+          <SubtotalTextContainer>
+            <p>Delivery</p>
+            <p>{DELIVERY_COST.toFixed(2)}</p>
+          </SubtotalTextContainer>
+          <TotalTextContainer>
+            <p>Total</p>
+            <p>33.20</p>
+          </TotalTextContainer>
+          <ConfirmOrderButton>Confirm Order</ConfirmOrderButton>
         </Card>
       </CartSection>
     </StyledMain>

@@ -29,6 +29,10 @@ export const StyledButton = styled.button<StyledButtonProps>`
       background-color: ${(props) => props.theme.colors.secondaryLight};
     `}
 
+  &:hover {
+    background-color: ${(props) => props.theme.colors.baseHover};
+  }
+
   svg {
     color: ${(props) => props.theme.colors.secondary};
     margin: -1px 0.75rem 0px 0px;
