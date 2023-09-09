@@ -11,6 +11,16 @@ export const StyledMain = styled.main`
   justify-content: space-between;
   gap: 2rem;
 
+  form {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+
+    @media ${(props) => props.theme.breakpoints.md} {
+      flex-direction: column;
+    }
+  }
+
   h2 {
     margin-block-end: 1rem;
     font-family: "Baloo 2", cursive;

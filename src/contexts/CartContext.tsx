@@ -12,9 +12,18 @@ interface CartItem {
 
 interface CartContextType {
   cartItems: CartItem[];
+  address?: {
+    street: string;
+    unit?: string;
+    postcode: string;
+    city: string;
+    province: string;
+  };
+  paymentMethod?: string;
   addItemToCart: (item: CartItem) => void;
   removeItemFromCart: (item: CartItem) => void;
   updateItemFromCart: (item: CartItem) => void;
+  updateAddressField?: (addressField: string, fieldValue: string) => void;
 }
 
 interface CartContextProviderProps {

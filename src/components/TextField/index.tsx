@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { StyledInput } from "./styles";
 
 export interface TextFieldProps
@@ -5,6 +6,10 @@ export interface TextFieldProps
   fullWidth?: boolean;
 }
 
-export function TextField({ fullWidth, ...props }: TextFieldProps) {
-  return <StyledInput type="text" $fullWidth={fullWidth} {...props} />;
-}
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  ({ fullWidth, ...props }, ref) => {
+    return (
+      <StyledInput ref={ref} type="text" $fullWidth={fullWidth} {...props} />
+    );
+  }
+);
