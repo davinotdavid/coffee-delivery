@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Bank,
   CreditCard,
@@ -56,9 +57,10 @@ const cartFormValidationSchema = zod.object({
 });
 
 type CartFormData = zod.infer<typeof cartFormValidationSchema>;
+type PaymentMethodType = "creditCard" | "debitCard" | "cash";
 
 export function Checkout() {
-  const { cartItems, updatePaymentMethod, updateAddress } =
+  const { cartItems, clearCart, updatePaymentMethod, updateAddress } =
     useContext(CartContext);
   const {
     register,
@@ -68,13 +70,17 @@ export function Checkout() {
     resolver: zodResolver(cartFormValidationSchema),
     defaultValues: {},
   });
+  const navigate = useNavigate();
 
   function handleOnPaymentOptionSelected(paymentSelected: string) {
-    updatePaymentMethod(paymentSelected);
+    updatePaymentMethod(paymentSelected as PaymentMethodType);
   }
 
   function handleOnConfirmOrder(data: CartFormData) {
     updateAddress(data);
+    clearCart();
+
+    navigate("/order-success");
   }
 
   const itemSubtotal = cartItems.reduce<number>((previous, current) => {

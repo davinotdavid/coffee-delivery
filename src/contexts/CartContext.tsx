@@ -18,15 +18,18 @@ interface AddressType {
   province: string;
 }
 
+type PaymentMethodType = "creditCard" | "debitCard" | "cash";
+
 interface CartContextType {
   cartItems: CartItem[];
   address?: AddressType;
-  paymentMethod?: string;
+  paymentMethod?: PaymentMethodType;
   addItemToCart: (item: CartItem) => void;
   removeItemFromCart: (item: CartItem) => void;
   updateItemFromCart: (item: CartItem) => void;
   updateAddress: (address: AddressType) => void;
-  updatePaymentMethod: (method: string) => void;
+  updatePaymentMethod: (method: PaymentMethodType) => void;
+  clearCart: () => void;
 }
 
 interface CartContextProviderProps {
@@ -42,7 +45,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     city: "",
     province: "",
   });
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>();
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: "1",
@@ -98,12 +101,16 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     ]);
   }
 
-  function updatePaymentMethod(method: string) {
+  function updatePaymentMethod(method: PaymentMethodType) {
     setPaymentMethod(method);
   }
 
   function updateAddress(address: AddressType) {
     setAddress(address);
+  }
+
+  function clearCart() {
+    setCartItems([]);
   }
 
   return (
@@ -117,6 +124,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         updatePaymentMethod,
         address,
         updateAddress,
+        clearCart,
       }}
     >
       {children}
