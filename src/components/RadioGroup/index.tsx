@@ -15,7 +15,12 @@ interface RadioGroupProps {
 export function RadioGroup({ fields, onOptionSelected }: RadioGroupProps) {
   const [selectedOption, setSelectedOption] = useState("");
 
-  function handleButtonClicked(selectedInnerValue: string) {
+  function handleButtonClicked(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    selectedInnerValue: string
+  ) {
+    event.preventDefault();
+
     setSelectedOption(selectedInnerValue);
     onOptionSelected(selectedInnerValue);
   }
@@ -26,7 +31,7 @@ export function RadioGroup({ fields, onOptionSelected }: RadioGroupProps) {
         <StyledButton
           key={field.innerValue}
           id={field.text}
-          onClick={() => handleButtonClicked(field.innerValue)}
+          onClick={(event) => handleButtonClicked(event, field.innerValue)}
           selected={field.innerValue === selectedOption}
         >
           {field.icon}

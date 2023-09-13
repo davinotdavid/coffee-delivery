@@ -58,7 +58,8 @@ const cartFormValidationSchema = zod.object({
 type CartFormData = zod.infer<typeof cartFormValidationSchema>;
 
 export function Checkout() {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, updatePaymentMethod, updateAddress } =
+    useContext(CartContext);
   const {
     register,
     handleSubmit,
@@ -69,11 +70,11 @@ export function Checkout() {
   });
 
   function handleOnPaymentOptionSelected(paymentSelected: string) {
-    console.log("paymentSelected", paymentSelected);
+    updatePaymentMethod(paymentSelected);
   }
 
   function handleOnConfirmOrder(data: CartFormData) {
-    console.log(data);
+    updateAddress(data);
   }
 
   const itemSubtotal = cartItems.reduce<number>((previous, current) => {

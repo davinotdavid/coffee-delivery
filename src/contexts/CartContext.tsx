@@ -10,20 +10,23 @@ interface CartItem {
   imageSrc: string;
 }
 
+interface AddressType {
+  street: string;
+  unit?: string;
+  postcode: string;
+  city: string;
+  province: string;
+}
+
 interface CartContextType {
   cartItems: CartItem[];
-  address?: {
-    street: string;
-    unit?: string;
-    postcode: string;
-    city: string;
-    province: string;
-  };
+  address?: AddressType;
   paymentMethod?: string;
   addItemToCart: (item: CartItem) => void;
   removeItemFromCart: (item: CartItem) => void;
   updateItemFromCart: (item: CartItem) => void;
-  updateAddressField?: (addressField: string, fieldValue: string) => void;
+  updateAddress: (address: AddressType) => void;
+  updatePaymentMethod: (method: string) => void;
 }
 
 interface CartContextProviderProps {
@@ -33,6 +36,13 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
+  const [address, setAddress] = useState<AddressType>({
+    street: "",
+    postcode: "",
+    city: "",
+    province: "",
+  });
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [cartItems, setCartItems] = useState<CartItem[]>([
     {
       id: "1",
@@ -88,6 +98,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     ]);
   }
 
+  function updatePaymentMethod(method: string) {
+    setPaymentMethod(method);
+  }
+
+  function updateAddress(address: AddressType) {
+    setAddress(address);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -95,6 +113,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addItemToCart,
         removeItemFromCart,
         updateItemFromCart,
+        paymentMethod,
+        updatePaymentMethod,
+        address,
+        updateAddress,
       }}
     >
       {children}
