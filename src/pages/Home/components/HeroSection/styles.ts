@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export const BackgroundContainer = styled.div`
-  background-image: url("src/assets/bgBlur.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  > img {
+    position: absolute;
+    width: 100%;
+    filter: blur(60px);
+  }
 `;
 
 export const StyledSection = styled.section`

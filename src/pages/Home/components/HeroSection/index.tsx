@@ -6,10 +6,13 @@ import {
   BackgroundContainer,
 } from "./styles";
 import HeroImagePNG from "@/assets/heroImage.png";
+import BgBlurSVG from "@/assets/bgBlur.svg";
 
 export function HeroSection() {
   return (
     <BackgroundContainer>
+      <img src={BgBlurSVG} alt="" />
+
       <StyledSection>
         <TextContainer>
           <h1>Find the perfect coffee any time of the day</h1>
