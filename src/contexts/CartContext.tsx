@@ -1,6 +1,9 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { MAX_COFFEE_QUANTITY_INPUT_VALUE } from "@/constants";
+import {
+  LOCAL_STORAGE_CART_KEY,
+  MAX_COFFEE_QUANTITY_INPUT_VALUE,
+} from "@/constants";
 
 interface CartItem {
   id: string;
@@ -46,15 +49,23 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     province: "",
   });
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>();
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: "1",
-      name: "Expresso Tradicional",
-      price: 9.9,
-      quantity: 3,
-      imageSrc: "src/assets/coffeeImages/espresso.png",
-    },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const localStorageCart = localStorage.getItem(LOCAL_STORAGE_CART_KEY);
+
+    if (localStorageCart) {
+      return JSON.parse(localStorageCart);
+    }
+
+    return [
+      {
+        id: "1",
+        name: "Expresso Tradicional",
+        price: 9.9,
+        quantity: 3,
+        imageSrc: "coffeeImages/espresso.png",
+      },
+    ];
+  });
 
   function addItemToCart(item: CartItem) {
     const existingItem = cartItems.find((c) => c.id === item.id);
@@ -112,6 +123,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   function clearCart() {
     setCartItems([]);
   }
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_CART_KEY, JSON.stringify(cartItems));
+  }, [cartItems]);
 
   return (
     <CartContext.Provider
